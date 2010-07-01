@@ -41,7 +41,7 @@ Object.extend = function (a, b, preserve_a) {
 	else {
 	
 		for (var i = 0, len = keys.length; i < len; ++i) {
-			
+
 			if (!(keys[i] in a)) a[keys[i]] = b[keys[i]];
 		}
 	}
@@ -74,7 +74,7 @@ Object.extendDeep = function(a, b, preserve_a) {
 			key = keys[i];
 			if (typeof b[key] === 'object')
 		
-				a = Object.mergeDeep((a[key] = a[key] || {}), b[key]);
+				a[key] = Object.extendDeep((a[key] = a[key] || {}), b[key]);
 			else
 		
 				a[key] = b[key];
@@ -87,12 +87,13 @@ Object.extendDeep = function(a, b, preserve_a) {
 			key = keys[i];
 			if (typeof b[key] === 'object')
 		
-				a = Object.mergeDeep((a[key] = a[key] || {}), b[key], preserve_a);
+				a[key] = Object.extendDeep((a[key] = a[key] || {}), b[key], preserve_a);
 			else if (!(key in a))
 		
 				a[key] = b[key];
 		}
 	}
+	
 	return a;
 };
 
