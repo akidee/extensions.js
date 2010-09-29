@@ -1,0 +1,47 @@
+extensions.js - thinking
+
+Ziel: Übertrage ein JavaScript-Objekt (
+	1) kann mehrere Referenzen auf dasselbe Objekt und zirkuläre Referenzen enthalten
+	2) kann einen Konstruktor (und damit ein proto) haben (insbesondere Date)
+) in eine JSON/JavaScript-Repräsentation, die die vollständige Wiederherstellung dieser Eigenschaften ermöglicht.
+
+1)
+a) Benutze JSON-Path zum Repräsentieren dieses Objekts (über replacer/reviver)
+Der replacer gibt jedem Objekt eine versteckte ID, da ich JSON-Path über IDs (weil unlogisch) nicht unterstütze, muss der replacer eine Referenz mit relativem Pfad zurückgeben.
+Daher besser:
+b) Um den aktuellen Pfad rauszubekommen, iterieren wir außerhalb des replacers - vorher - über das gesamte Objekt. Denn im replacer ist der aktuelle Pfad nur schwer herauszubekommen, da keine Pfad-Informationen verfügbar sind. Jetzt soll aber weder das Objekt verändert werden (die JSON-Path-Referenz würde ja die JavaScript-Referenz überschreiben) noch eine Kopie (für einige wenige Referenzen) erstellt werden. Ergo: Im root-Objekt erstellen wir $refs, das alle Referenzen in einer Liste enthält.
+Diese Lösung ist auch besser für nachträgliche Referenzen im Sinne von JSON.
+
+REVIVE_FULL
+
+Ideen:
+toJSON()
+eigenes JavaScript stringify()
+JSON replacer und reviver
+
+Lösungen:
+1) 
+
+Object.findRefs = function (object) {
+
+	function self (obj) {
+	
+		
+	};
+};
+
+function (key, value) {
+
+	if (this.$omit && this.$omit[key]) return;
+	
+	
+	return value;
+}
+
+
+a) Vorher rekursiv über myObject iterieren, Referenzen in myObject.$refs speichern, stringify()
+	Dann Object.resolveRefs(... aufrufen)
+	
+
+API:
+Object.resolveRefs(object, fast)

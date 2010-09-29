@@ -10,6 +10,44 @@ require('extensions');
 
 
 
+	// Object.callAsync()
+	
+// Implement a dummy async String.prototype.toLowerCase()
+
+String.prototype.toLowerCaseAsync = function (_callback) {
+
+	_callback(null, this.toLowerCase());
+};
+
+Object.callAsync({a: 'abC', b: 'ZYX'}, 'toLowerCaseAsync', function (e, map) {
+	
+	a(e, null);
+
+	d(
+		map,
+		{
+			a: 'abc',
+			b: 'zyx'
+		}
+	);
+});
+
+
+
+	// Object.call()
+	
+var map = Object.call({a: 'abC', b: 'ZYX'}, 'toLowerCase');
+
+d(
+	map,
+	{
+		a: 'abc',
+		b: 'zyx'
+	}
+);
+
+
+
 	// Object.extend()
 
 
@@ -118,7 +156,7 @@ var p = {};
 Object.id(p);
 
 a(
-	p.$id,
+	p.__id,
 	1
 );
 
@@ -127,8 +165,8 @@ var q = {};
 Object.id(q);
 
 d(
-	q,
-	{$id:2}
+	q.__id,
+	2
 );
 
 
@@ -201,7 +239,7 @@ q.b = q;
 Object.findRefs(q);
 
 a(
-	q.$id,
+	q.__id,
 	3
 );
 
@@ -216,7 +254,7 @@ d(
 Object.findRefs(q);
 
 a(
-	q.$id,
+	q.__id,
 	3
 );
 
@@ -306,7 +344,7 @@ a(
 
 // Test extended JSON capabilities
 
-global.MyClass = function MyClass (data) {
+/*global.MyClass = function MyClass (data) {
 
 	Object.extend(this, data);
 }
@@ -329,4 +367,9 @@ a(
 a(
 	_myObject.d,
 	_myObject
-);
+);*/
+
+
+
+
+log('Passed');
