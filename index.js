@@ -210,7 +210,7 @@ Object.extendDeep = function(a, b, preserve_a) {
 		for (var i = 0, len = keys.length; i < len; ++i) {
 			
 			key = keys[i];
-			if (typeof b[key] === 'object')
+			if (typeof b[key] === 'object' && !(b[key] instanceof Array))
 		
 				a[key] = Object.extendDeep((a[key] = a[key] || {}), b[key]);
 			else
@@ -223,7 +223,7 @@ Object.extendDeep = function(a, b, preserve_a) {
 		for (var i = 0, len = keys.length; i < len; ++i) {
 			
 			key = keys[i];
-			if (typeof b[key] === 'object')
+			if (typeof b[key] === 'object' && !(b[key] instanceof Array))
 		
 				a[key] = Object.extendDeep((a[key] = a[key] || {}), b[key], preserve_a);
 			else if (!(key in a))
